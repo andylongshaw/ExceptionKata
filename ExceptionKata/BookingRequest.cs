@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
 
 namespace ExceptionKata
 {
@@ -18,20 +15,8 @@ namespace ExceptionKata
 
         public void Check()
         {
-            List<string> notification = new List<string>();
-            Validate(notification);
-            if (notification.Count > 0)
-            {
-                throw new ArgumentException(notification.FirstOrDefault());
-            }
-        }
-
-        private void Validate(List<string> notification)
-        {
             if (date == null)
-            {
-                notification.Add("date is missing");
-            }
+                throw new ArgumentException("date is missing");
 
             DateTime parsedDate;
             try
@@ -40,25 +25,11 @@ namespace ExceptionKata
             }
             catch (FormatException e)
             {
-                parsedDate = DateTime.MaxValue;
-                notification.Add("Invalid format for date");
+                throw new ArgumentException("Invalid format for date", e);
             }
-            if (parsedDate != DateTime.MaxValue)
-            {
-                if (parsedDate < DateTime.Now)
-                {
-                    notification.Add("date cannot be before today");
-                }
-            }
-            if (numberOfSeats == null)
-            {
-                notification.Add("number of seats cannot be null");
-            }
-            if (numberOfSeats < 1)
-            {
-                notification.Add("number of seats must be positive");
-            }
+            if (parsedDate < DateTime.Now) throw new ArgumentException("date cannot be before today");
+            if (numberOfSeats == null) throw new ArgumentException("number of seats cannot be null");
+            if (numberOfSeats < 1) throw new ArgumentException("number of seats must be positive");
         }
     }
-
 }
