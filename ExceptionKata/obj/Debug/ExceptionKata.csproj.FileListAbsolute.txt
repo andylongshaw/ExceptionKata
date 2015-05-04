@@ -1,0 +1,8 @@
+C:\repos\ExceptionKata\ExceptionKata\bin\Debug\ExceptionKata.dll
+C:\repos\ExceptionKata\ExceptionKata\bin\Debug\ExceptionKata.pdb
+C:\repos\ExceptionKata\ExceptionKata\obj\Debug\ExceptionKata.csprojResolveAssemblyReference.cache
+C:\repos\ExceptionKata\ExceptionKata\obj\Debug\ExceptionKata.dll
+C:\repos\ExceptionKata\ExceptionKata\obj\Debug\ExceptionKata.pdb
+C:\repos\ExceptionKata\ExceptionKata\bin\Debug\nunit.core.interfaces.dll
+C:\repos\ExceptionKata\ExceptionKata\bin\Debug\nunit.framework.dll
+C:\repos\ExceptionKata\ExceptionKata\bin\Debug\nunit.framework.xml

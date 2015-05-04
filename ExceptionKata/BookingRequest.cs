@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace ExceptionKata
 {
     public class BookingRequest
     {
-        private int numberOfSeats;
+        private int? numberOfSeats;
         private string date;
 
-        public BookingRequest(int numberOfSeats, string date)
+        public BookingRequest(int? numberOfSeats, string date)
         {
             this.numberOfSeats = numberOfSeats;
             this.date = date;
@@ -19,8 +18,20 @@ namespace ExceptionKata
 
         public void Check()
         {
+            List<string> notification = new List<string>();
+            Validate(notification);
+            if (notification.Count > 0)
+            {
+                throw new ArgumentException(notification.FirstOrDefault());
+            }
+        }
+
+        private void Validate(List<string> notification)
+        {
             if (date == null)
-                throw new ArgumentException("date is missing");
+            {
+                notification.Add("date is missing");
+            }
 
             DateTime parsedDate;
             try
@@ -29,11 +40,25 @@ namespace ExceptionKata
             }
             catch (FormatException e)
             {
-                throw new ArgumentException("Invalid format for date", e);
+                parsedDate = DateTime.MaxValue;
+                notification.Add("Invalid format for date");
             }
-            if (parsedDate < DateTime.Now) throw new ArgumentException("date cannot be before today");
-            if (numberOfSeats == null) throw new ArgumentException("number of seats cannot be null");
-            if (numberOfSeats < 1) throw new ArgumentException("number of seats must be positive");
+            if (parsedDate != DateTime.MaxValue)
+            {
+                if (parsedDate < DateTime.Now)
+                {
+                    notification.Add("date cannot be before today");
+                }
+            }
+            if (numberOfSeats == null)
+            {
+                notification.Add("number of seats cannot be null");
+            }
+            if (numberOfSeats < 1)
+            {
+                notification.Add("number of seats must be positive");
+            }
         }
     }
+
 }
